@@ -1,0 +1,8 @@
+https://github.com/ethereum/mist/releases
+
+sudo apt install ./Ethereum-Wallet-linux64-0-11-1.deb
+
+./ethereumwallet --rpc ~/.ethereum/testnet/geth.ipc
+
+
+

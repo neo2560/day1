@@ -1,0 +1,55 @@
+
+1) https://github.com/ethereum/ropsten
+
+It takes 4 hrs to sync ropsten network
+
+geth --testnet removedb
+
+geth --testnet --fast --bootnodes "enode://20c9ad97c081d63397d7b685a412227a40e23c8bdc6688c6f37e97cfbc22d2b4d1db1510d8f61e6a8866ad7f0e17c02b14182d37ea7c3c8b9c2683aeb6b733a1@52.169.14.227:30303,enode://6ce05930c72abc632c58e2e4324f7c7ea478cec0ed4fa2528982cf34483094e9cbc9216e7aa349691242576d552a2a56aaeae426c5303ded677ce455ba1acd9d@13.84.180.240:30303" console
+
+
+2) 
+geth --testnet console
+
+geth --testnet --rpc --rpcapi "eth,net,web3" --rpccorsdomain '*' --rpcaddr 0.0.0.0 --rpcport 8080
+
+3) 
+curl -X POST --data '{"jsonrpc":"2.0","method":"net_version","params":[],"id":67}' http://0.0.0.0:8080
+
+
+
+------------------------------
+Example:-
+
+1) 
+ geth --testnet --bootnodes "enode://6332792c4a00e3e4ee0926ed89e0d27ef985424d97b6a45bf0f23e51f0dcb5e66b875777506458aea7af6f9e4ffb69f43f3778ee73c81ed9d34c51c4b16b0b0f@52.232.243.152:30303,enode://94c15d1b9e2fe7ce56e458b9a3b672ef11894ddedd0c6f247e0f1d3487f52b66208fb4aeb8179fce6e3a749ea93ed147c37976d67af557508d199d9594c35f09@192.81.208.223:30303" console
+
+
+2) 
+> eth.accounts
+[]
+
+> personal.newAccount('test13')
+INFO [08-26|06:14:55.301] Your new key was generated               address=0xB77253a98b18640ae3fcf797CCda8221eed94D2A
+WARN [08-26|06:14:55.301] Please backup your key file!             path=/home/ramesh/.ethereum/testnet/keystore/UTC--2019-08-26T00-44-52.335405282Z--b77253a98b18640ae3fcf797ccda8221eed94d2a
+WARN [08-26|06:14:55.301] Please remember your password! 
+"0xb77253a98b18640ae3fcf797ccda8221eed94d2a"
+
+> eth.accounts
+["0xb77253a98b18640ae3fcf797ccda8221eed94d2a"]
+
+3) 
+To enable RPC in geth node
+geth -testnet --bootnodes "enode://6332792c4a00e3e4ee0926ed89e0d27ef985424d97b6a45bf0f23e51f0dcb5e66b875777506458aea7af6f9e4ffb69f43f3778ee73c81ed9d34c51c4b16b0b0f@52.232.243.152:30303,enode://94c15d1b9e2fe7ce56e458b9a3b672ef11894ddedd0c6f247e0f1d3487f52b66208fb4aeb8179fce6e3a749ea93ed147c37976d67af557508d199d9594c35f09@192.81.208.223:30303"  --rpc --rpcapi "eth,net,web3" --rpccorsdomain '*' --rpcaddr 0.0.0.0 --rpcport 8080 console
+
+
+4) Before enable/after enable
+
+ramesh@ramesh-Inspiron-3542:~/delhi/workspace2/ropsten$ curl -X POST --data '{"jsonrpc":"2.0","method":"net_version","params":[],"id":67}' http://0.0.0.0:8080
+curl: (7) Failed to connect to 0.0.0.0 port 8080: Connection refused
+
+
+ramesh@ramesh-Inspiron-3542:~/delhi/workspace2/ropsten$ curl -X POST --data '{"jsonrpc":"2.0","method":"net_version","params":[],"id":67}' http://0.0.0.0:8080
+invalid content type, only application/json is supported
+
+
