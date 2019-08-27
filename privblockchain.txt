@@ -1,0 +1,103 @@
+
+Create init.json
+
+{
+  "config": {
+    "chainId": 2018,
+    "homesteadBlock": 0,
+    "eip155Block": 0,
+    "eip158Block": 0
+  },
+
+  "alloc"      : {},
+  "coinbase"   : "0x0000000000000000000000000000000000000000",
+  "difficulty" : "0x400",
+  "extraData"  : "",
+  "gasLimit"   : "0x2fefd8",
+  "nonce"      : "0x0000000000000042",
+  "mixhash"    : "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "parentHash" : "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "timestamp"  : "0x00"
+}
+
+
+
+1)  workspace2/gethexp$ geth --datadir ./datadir init init.json
+INFO [08-21|10:57:52.840] Bumping default cache on mainnet         provided=1024 updated=4096
+WARN [08-21|10:57:52.840] Sanitizing cache to Go's GC limits       provided=4096 updated=1285
+
+
+
+2) Create account 
+Using geth
+gethexp$ geth --datadir ./datadir account new
+INFO [08-21|11:00:15.124] Bumping default cache on mainnet         provided=1024 updated=4096
+WARN [08-21|11:00:15.125] Sanitizing cache to Go's GC limits       provided=4096 updated=1285
+INFO [08-21|11:00:15.127] Maximum peer count                       ETH=50 LES=0 total=50
+INFO [08-21|11:00:15.127] Smartcard socket not found, disabling    err="stat /run/pcscd/pcscd.comm: no such file or directory"
+Your new account is locked with a password. Please give a password. Do not forget this password.
+Passphrase: 
+Repeat passphrase: 
+
+Your new key was generated
+
+Public address of the key:   0x9d6aF3f8B5B66586cAfC7150d726a861cA2B031d
+Path of the secret key file: datadir/keystore/UTC--2019-08-21T05-30-24.125776424Z--9d6af3f8b5b66586cafc7150d726a861ca2b031d
+
+- You can share your public address with anyone. Others need it to interact with you.
+- You must NEVER share the secret key with anyone! The key controls access to your funds!
+- You must BACKUP your key file! Without the key, it's impossible to access account funds!
+- You must REMEMBER your password! Without the password, it's impossible to decrypt the key!
+
+3) Get geth console
+geth --datadir ./datadir console
+
+
+ eth.accounts
+["0x9d6af3f8b5b66586cafc7150d726a861ca2b031d"]
+
+> eth.accounts
+["0x9d6af3f8b5b66586cafc7150d726a861ca2b031d"]
+> eth.getBalance(eth.accounts[0])
+0
+> eth.blockNumber
+0
+
+
+4) From prompt creating account
+personal.newAccount("passphrase")
+INFO [08-21|11:08:23.023] Your new key was generated               address=0x49AB20932133bb15A17501D2eF5cAD41C59598AE
+WARN [08-21|11:08:23.023] Please backup your key file!             path=/home/ramesh/delhi/workspace2/gethexp/datadir/keystore/UTC--2019-08-21T05-38-20.085279695Z--49ab20932133bb15a17501d2ef5cad41c59598ae
+WARN [08-21|11:08:23.023] Please remember your password! 
+"0x49ab20932133bb15a17501d2ef5cad41c59598ae"
+
+
+
+
+6) 
+
+> web3.fromWei(eth.getBalance(eth.coinbase), "ether")
+0
+
+8) https://ethereum.gitbooks.io/frontier-guide/rpc.html
+// Request
+curl -X POST --data '{"jsonrpc":"2.0","method":"eth_accounts","params":[],"id":1}'
+
+// Result
+{
+  "id":1,
+  "jsonrpc": "2.0",
+  "result": ["0x407d73d8a49eeb85d32cf465507dd71d507100c1"]
+}
+
+
+9) Start the listener for node
+geth --networkid 2018 --mine --minerthreads 1 --datadir "./datadir" --nodiscover --rpc --rpcport "8545" --port "30303" --rpccorsdomain "*" --nat "any" --rpcapi eth,web3,personal,net   --ipcpath "~/datadir/geth.ipc"
+
+
+10) 
+/opt/Ethereum Wallet$ ./ethereumwallet --rpc http://localhost:8545 
+[2019-08-21T13:21:46.491] [INFO] Settings - Running in production mode: true
+
+
+
